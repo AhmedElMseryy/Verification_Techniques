@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomVerificationTokenController;
 use App\Http\Controllers\MerchantAuth\AuthenticatedSessionController;
 use App\Http\Controllers\MerchantAuth\ConfirmablePasswordController;
 use App\Http\Controllers\MerchantAuth\EmailVerificationNotificationController;
@@ -24,6 +25,7 @@ Route::middleware('guest:merchant')->group(function () {
 });
 
 Route::middleware('merchant')->group(function () {
+    //email
     if (config('verification.way') == 'email') {
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');
@@ -36,6 +38,22 @@ Route::middleware('merchant')->group(function () {
             ->middleware('throttle:6,1')
             ->name('verification.send');
     }
+
+
+    //CVT
+    if (config('verification.way') == 'cvt') {
+        Route::get('verify-email', [CustomVerificationTokenController::class, 'notice'])
+            ->name('verification.notice');
+
+        Route::get('verify-email/{id}/{token}', [CustomVerificationTokenController::class, 'verify'])
+            ->middleware(['throttle:6,1'])
+            ->name('verification.verify');
+
+        Route::post('email/verification-notification', [CustomVerificationTokenController::class, 'resend'])
+            ->middleware('throttle:6,1')
+            ->name('verification.send');
+    }
+
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
