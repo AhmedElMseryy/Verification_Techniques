@@ -11,7 +11,7 @@
             <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
             <!-- Session Status -->
-            <x-auth-session-status class="mb-4" :status="session('status')" />
+            <x-auth-session-status class="mb-4 text-success" :status="session('status')" />
 
             <form id="formAuthentication" class="mb-3" action="{{ route('merchant.login') }}" method="POST">
                 @csrf
@@ -24,27 +24,29 @@
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
-                <!-- PASSWORD -->
-                <div class="mb-3 form-password-toggle">
-                    <div class="d-flex justify-content-between">
-                        <label class="form-label" for="password">Password</label>
+                @if (config('verification.way') != 'passwordless')
+                    <!-- PASSWORD -->
+                    <div class="mb-3 form-password-toggle">
+                        <div class="d-flex justify-content-between">
+                            <label class="form-label" for="password">Password</label>
+                        </div>
+                        <div class="input-group input-group-merge">
+                            <input type="password" id="password" class="form-control" name="password"
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                aria-describedby="password" />
+                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                        </div>
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
-                    <div class="input-group input-group-merge">
-                        <input type="password" id="password" class="form-control" name="password"
-                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                            aria-describedby="password" />
-                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    </div>
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                </div>
 
-                <!-- REMEMBER -->
-                <div class="mb-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="remember-me" name="remember" />
-                        <label class="form-check-label" for="remember-me"> Remember Me </label>
+                    <!-- REMEMBER -->
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember-me" name="remember" />
+                            <label class="form-check-label" for="remember-me"> Remember Me </label>
+                        </div>
                     </div>
-                </div>
+                @endif
 
 
                 <div class="mb-3">
