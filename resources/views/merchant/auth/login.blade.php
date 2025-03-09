@@ -24,7 +24,7 @@
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
-                @if (config('verification.way') != 'passwordless')
+                @if (config('verification.way') != 'passwordless' && config('verification.way') != 'otp')
                     <!-- PASSWORD -->
                     <div class="mb-3 form-password-toggle">
                         <div class="d-flex justify-content-between">
