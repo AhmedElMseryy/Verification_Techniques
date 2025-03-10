@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
 
-class PasswordResetLinkController extends Controller
+class PasswordResetLinkController extends Twilio
 {
     /**
      * Display the password reset link request view.

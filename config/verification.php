@@ -12,4 +12,8 @@ return [
 
     'way' => 'otp',
 
+    // OTP PROVIDERS
+    // 'twilio' OR 'vonage'
+    'otp_provider' => 'vonage'
+
 ];

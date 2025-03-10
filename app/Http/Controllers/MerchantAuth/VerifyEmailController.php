@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\MerchantEmailVerificationRequest;
 
-class VerifyEmailController extends Controller
+class VerifyEmailController extends Twilio
 {
     /**
      * Mark the authenticated user's email address as verified.

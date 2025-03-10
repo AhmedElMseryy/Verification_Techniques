@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-class ConfirmablePasswordController extends Controller
+class ConfirmablePasswordController extends Twilio
 {
     /**
      * Show the confirm password view.
